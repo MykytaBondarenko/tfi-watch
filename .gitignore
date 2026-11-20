@@ -1,0 +1,28 @@
+# Environment secrets
+.env
+**/.env
+.env.*
+!**/.env.example
+
+# Python artifacts
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Downloaded GTFS & local SQLite files
+backend/data/*.zip
+backend/data/gtfs_static/
+backend/data/*.db
+backend/data/*.db-wal
+backend/data/*.db-shm
+
+# Future Android / Wear OS artifacts
+wear-app/.gradle/
+wear-app/build/
+wear-app/local.properties
+
+# OS clutter
+.DS_Store
