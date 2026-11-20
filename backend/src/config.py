@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import field_validator
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +31,18 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379/0"
     sqlite_db_path: Path = Path("data/gtfs.db")
     test_stop_id: str = ""
+
+    # --- Phase 2 ---
+    # Optional shared secret for X-API-Key auth on /stops/*. Empty = auth disabled.
+    app_api_key: str = ""
+    # Freshness TTL of the cached GTFS-R feed; per-trip keys get a +30s grace period.
+    gtfsr_ttl_seconds: int = Field(default=60, ge=1)
+    gtfsr_request_timeout_seconds: float = Field(default=10.0, gt=0)
+    default_window_minutes: int = Field(default=90, ge=5, le=240)
+    default_departures_limit: int = Field(default=10, ge=1, le=30)
+    static_refresh_enabled: bool = False
+    static_refresh_hour_utc: int = Field(default=4, ge=0, le=23)
+    timezone: str = "Europe/Dublin"
 
     @field_validator("sqlite_db_path")
     @classmethod

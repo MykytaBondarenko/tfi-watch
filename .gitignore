@@ -18,6 +18,7 @@ backend/data/gtfs_static/
 backend/data/*.db
 backend/data/*.db-wal
 backend/data/*.db-shm
+backend/data/*.tmp*
 
 # Future Android / Wear OS artifacts
 wear-app/.gradle/
